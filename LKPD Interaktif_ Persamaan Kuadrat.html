@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LKPD Interaktif: Persamaan Kuadrat</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Nunito+Sans:wght@400;600;700&display=swap">
+<style>
+:root{--bg:#eef6f2;--grid:#cfe3da;--card:#ffffff;--ink:#1b2b4a;--mut:#51607a;--line:#b9cdc3;--blue:#2f6fed;--ok:#17734c;--okbg:#dff4e8;--bad:#b3261e;--badbg:#fde4e1;--mark:#ffe27a;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10201b;--grid:#1d342c;--card:#172a24;--ink:#e8f1ee;--mut:#9db3ab;--line:#2c4a40;--blue:#7aa2ff;--ok:#6fdca6;--okbg:#14382a;--bad:#ff9a92;--badbg:#3d1d1a;--mark:#6b5a12;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#10201b;--grid:#1d342c;--card:#172a24;--ink:#e8f1ee;--mut:#9db3ab;--line:#2c4a40;--blue:#7aa2ff;--ok:#6fdca6;--okbg:#14382a;--bad:#ff9a92;--badbg:#3d1d1a;--mark:#6b5a12;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background-color:var(--bg);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px;color:var(--ink);font:400 16px/1.6 "Nunito Sans",system-ui,sans-serif}
+main{max-width:760px;margin:0 auto;padding:20px 16px 80px}
+h1,h2{font-family:"Bricolage Grotesque",system-ui,sans-serif;line-height:1.15;margin:0}
+h1{font-size:clamp(28px,6vw,42px);font-weight:800}
+h1 span{background:linear-gradient(transparent 55%,var(--mark) 55%);padding:0 4px}
+h2{font-size:22px;font-weight:800;margin-bottom:6px}
+.card{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:18px;margin:16px 0;box-shadow:4px 4px 0 var(--ink)}
+.sub{color:var(--mut);margin:4px 0 0}
+.id{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+label{font-weight:700;font-size:14px;display:block}
+input,select,textarea{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:8px;padding:8px 10px}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:3px solid var(--blue);outline-offset:1px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border:2px solid var(--ink);border-radius:12px;padding:8px 12px;margin-top:14px}
+.track{height:10px;background:var(--grid);border-radius:6px;overflow:hidden;margin-top:6px}
+.fill{height:100%;width:0;background:var(--ok);transition:width .4s}
+.q{border-top:2px dashed var(--line);padding-top:14px;margin-top:14px}
+.eq{font:700 20px/1.3 "Bricolage Grotesque",system-ui,sans-serif;background:var(--mark);display:inline-block;padding:2px 10px;border-radius:6px;margin:4px 0 10px}
+.fs{display:flex;flex-wrap:wrap;gap:10px}
+.fs div{flex:1 1 110px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+button{font:700 15px "Nunito Sans",system-ui,sans-serif;border:2px solid var(--ink);border-radius:10px;padding:8px 16px;cursor:pointer;background:var(--blue);color:#fff;min-height:44px}
+button.g{background:var(--card);color:var(--ink)}
+.fb{font-weight:700;padding:2px 0}
+.fb.ok{color:var(--ok)}.fb.bad{color:var(--bad)}
+.hint{display:none;background:var(--bg);border-left:5px solid var(--blue);padding:8px 12px;border-radius:4px;margin-top:8px;font-size:15px}
+.q.done{background:var(--okbg);border-radius:10px;padding:14px 10px 10px}
+.out{font:700 18px "Bricolage Grotesque",system-ui,sans-serif;margin-top:10px}
+.sum{white-space:pre-wrap}
+@media print{.bar,button,.hint{display:none!important}body{background:#fff}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>LKPD: <span>Persamaan Kuadrat</span></h1>
+<p class="sub">Matematika · Fase E / Kelas 10 · Semester Ganjil · 2 JP · kerja kelompok 3-4 murid</p>
+
+<div class="card">
+<h2>Identitas Kelompok</h2>
+<div class="id">
+<div><label for="nm">Nama kelompok</label><input id="nm" autocomplete="off"></div>
+<div><label for="an">Anggota</label><input id="an" autocomplete="off"></div>
+<div><label for="kl">Kelas</label><input id="kl" autocomplete="off"></div>
+</div>
+</div>
+
+<div class="card">
+<h2>Tujuan dan Petunjuk</h2>
+<p>Hari ini kalian akan mengenali bentuk umum persamaan kuadrat, menentukan akarnya dengan pemfaktoran, memeriksa akar dengan substitusi, lalu memakainya untuk memecahkan masalah kebun dan bilangan.</p>
+<p>Isi setiap kotak, tekan <b>Periksa</b>, dan baca umpan baliknya. Jawaban pecahan boleh ditulis seperti <b>-4/3</b>. Kalau macet, buka <b>Petunjuk</b> dulu sebelum bertanya ke guru.</p>
+<div class="bar" aria-live="polite"><b id="sc">Misi tuntas: 0 dari 0</b><div class="track"><div class="fill" id="fl"></div></div></div>
+</div>
+
+<div id="app"></div>
+
+<div class="card">
+<h2>Misi 3 · Uji Akar dengan Substitusi</h2>
+<p>Pilih persamaan, masukkan nilai x, lalu lihat hasil substitusinya. Akar sejati membuat ruas kiri bernilai 0.</p>
+<div class="fs">
+<div><label for="te">Persamaan</label><select id="te"><option value="1,5,6">x² + 5x + 6 = 0</option><option value="2,7,3">2x² + 7x + 3 = 0</option><option value="1,-5,6">x² − 5x + 6 = 0</option></select></div>
+<div><label for="tx">Nilai x</label><input id="tx" inputmode="text" placeholder="contoh: -2 atau -1/2"></div>
+</div>
+<div class="row"><button id="tb">Hitung</button></div>
+<div class="out" id="to" aria-live="polite"></div>
+</div>
+
+<div id="app2"></div>
+
+<div class="card">
+<h2>Refleksi Kelompok</h2>
+<p>Nilai dirimu pada tiap kriteria.</p>
+<div id="rf"></div>
+<label for="rt" style="margin-top:10px">Bagian yang masih sulit dan rencana belajarmu</label>
+<textarea id="rt" rows="3"></textarea>
+<div class="row"><button id="rb">Lihat ringkasan</button><button class="g" id="pb">Cetak</button></div>
+<div class="out sum" id="ro" aria-live="polite"></div>
+</div>
+</main>
+<script>
+var P=function(s){s=String(s).replace(/\u2212/g,"-").replace(",",".").trim();if(!s)return NaN;if(s.indexOf("/")>0){var t=s.split("/");return parseFloat(t[0])/parseFloat(t[1])}return Number(s)};
+var close=function(a,b){return Math.abs(a-b)<0.011};
+var S1=[
+{t:"Misi 1 · Kenali Bentuk Umum",d:"Ubah ke bentuk ax² + bx + c = 0, lalu isi a, b, dan c.",qs:[
+{id:"a1",eq:"x² − 5x + 6 = 0",f:["a","b","c"],ans:[1,-5,6],h:"Koefisien ikut tandanya. Suku −5x berarti b = −5."},
+{id:"a2",eq:"2x² + 7x + 3 = 0",f:["a","b","c"],ans:[2,7,3],h:"Angka di depan x² adalah a."},
+{id:"a3",eq:"x² − 9 = 0",f:["a","b","c"],ans:[1,0,-9],h:"Tidak ada suku x, jadi b = 0."},
+{id:"a4",eq:"x² + 4 = 5x",f:["a","b","c"],ans:[1,-5,4],h:"Pindahkan 5x ke ruas kiri sehingga ruas kanan menjadi 0."}]},
+{t:"Misi 2 · Faktorkan dan Temukan Akar",d:"Tuliskan dua akar. Urutan bebas.",qs:[
+{id:"b1",eq:"x² + 7x + 12 = 0",f:["akar 1","akar 2"],ans:[-3,-4],un:1,h:"Cari dua bilangan yang hasil kalinya 12 dan jumlahnya 7. Faktornya (x + p)(x + q), akarnya −p dan −q."},
+{id:"b2",eq:"x² − x − 12 = 0",f:["akar 1","akar 2"],ans:[4,-3],un:1,h:"Hasil kali −12 dan jumlah −1. Pasangannya −4 dan 3, jadi (x − 4)(x + 3) = 0."},
+{id:"b3",eq:"3x² + 10x + 8 = 0",f:["akar 1","akar 2"],ans:[-2,-4/3],un:1,h:"a·c = 24. Cari dua bilangan hasil kali 24 dan jumlah 10 (yaitu 4 dan 6): 3x² + 4x + 6x + 8 = x(3x + 4) + 2(3x + 4)."}]}
+];
+var S2=[
+{t:"Periksa Hasil Substitusi",d:"Hitung nilai ruas kiri x² − 5x + 6 untuk x yang diberikan.",qs:[
+{id:"c1",eq:"x = 2 pada x² − 5x + 6",f:["hasil"],ans:[0],h:"4 − 10 + 6 = ...",ex:"Hasil 0 berarti x = 2 adalah akar."},
+{id:"c2",eq:"x = 1 pada x² − 5x + 6",f:["hasil"],ans:[2],h:"1 − 5 + 6 = ...",ex:"Hasil bukan 0 sehingga x = 1 bukan akar."}]},
+{t:"Misi 4 · Masalah Kebun Pak Rudi",d:"Kebun persegi panjang luasnya 40 m². Panjangnya 3 m lebih dari lebarnya. Misalkan lebar = x meter.",qs:[
+{id:"d1",eq:"Pilih model matematika yang tepat",sel:["x² + 3x − 40 = 0","x² − 3x − 40 = 0","x² + 3x + 40 = 0"],ans:[0],h:"Luas = lebar × panjang = x(x + 3) = 40. Pindahkan 40 ke ruas kiri."},
+{id:"d2",eq:"Akar-akar x² + 3x − 40 = 0",f:["akar 1","akar 2"],ans:[5,-8],un:1,h:"Hasil kali −40 dan jumlah 3 menghasilkan 8 dan −5, jadi (x + 8)(x − 5) = 0."},
+{id:"d3",eq:"Karena ukuran tidak boleh negatif, tentukan ukuran kebun",f:["lebar (m)","panjang (m)"],ans:[5,8],h:"Ambil akar positif sebagai lebar, panjang = lebar + 3. Cek: 5 × 8 = 40."}]},
+{t:"Misi 5 · Tantangan Bilangan Berurutan",d:"Hasil kali dua bilangan bulat positif berurutan adalah 56. Misalkan bilangan terkecil x.",qs:[
+{id:"e1",eq:"Pilih model matematika yang tepat",sel:["x² + x − 56 = 0","x² − x − 56 = 0","x² + 56 = 0"],ans:[0],h:"Bilangannya x dan x + 1, sehingga x(x + 1) = 56."},
+{id:"e2",eq:"Tentukan akar, lalu kedua bilangan",f:["akar positif","bilangan terkecil","bilangan terbesar"],ans:[7,7,8],h:"(x + 8)(x − 7) = 0. Pilih akar yang positif, lalu bilangan berikutnya adalah x + 1."}]}
+];
+var total=0,done=0;
+function render(S,el){var h="";S.forEach(function(s){h+='<div class="card"><h2>'+s.t+'</h2><p class="sub">'+s.d+'</p>';s.qs.forEach(function(q){total++;h+='<div class="q" id="q_'+q.id+'"><div class="eq">'+q.eq+'</div>';if(q.sel){h+='<label for="f_'+q.id+'">Pilihanmu</label><select id="f_'+q.id+'"><option value="">-- pilih --</option>';q.sel.forEach(function(o,i){h+='<option value="'+i+'">'+o+'</option>'});h+='</select>'}else{h+='<div class="fs">';q.f.forEach(function(f,i){h+='<div><label for="f_'+q.id+i+'">'+f+'</label><input id="f_'+q.id+i+'" inputmode="text" autocomplete="off"></div>'});h+='</div>'}
+h+='<div class="row"><button data-c="'+q.id+'">Periksa</button><button class="g" data-h="'+q.id+'">Petunjuk</button><span class="fb" id="fb_'+q.id+'" aria-live="polite"></span></div><div class="hint" id="h_'+q.id+'">'+q.h+'</div></div>'});h+='</div>'});document.getElementById(el).innerHTML=h}
+var ALL=S1.concat(S2),QS={};ALL.forEach(function(s){s.qs.forEach(function(q){QS[q.id]=q})});
+render(S1,"app");render(S2,"app2");
+function upd(){document.getElementById("sc").textContent="Misi tuntas: "+done+" dari "+total;document.getElementById("fl").style.width=(total?done/total*100:0)+"%"}
+upd();
+function check(id){var q=QS[id],box=document.getElementById("q_"+id),fb=document.getElementById("fb_"+id),v=[];
+if(q.sel){var x=document.getElementById("f_"+id).value;v=[x===""?NaN:Number(x)]}else{q.f.forEach(function(f,i){v.push(P(document.getElementById("f_"+id+i).value))})}
+if(v.some(isNaN)){fb.className="fb bad";fb.textContent="Isi semua kotak dengan angka dulu.";return}
+var ok;if(q.un){var a=v.slice().sort(function(x,y){return x-y}),b=q.ans.slice().sort(function(x,y){return x-y});ok=a.every(function(x,i){return close(x,b[i])})}else ok=v.every(function(x,i){return close(x,q.ans[i])});
+if(ok){fb.className="fb ok";fb.textContent="Benar! "+(q.ex||"");if(!box.classList.contains("done")){box.classList.add("done");done++;upd()}}
+else{fb.className="fb bad";fb.textContent="Belum tepat. Periksa tanda dan hitung ulang, atau buka Petunjuk."}}
+document.addEventListener("click",function(e){var t=e.target;if(t.dataset.c)check(t.dataset.c);if(t.dataset.h){var h=document.getElementById("h_"+t.dataset.h);h.style.display=h.style.display==="block"?"none":"block"}});
+document.getElementById("tb").onclick=function(){var c=document.getElementById("te").value.split(",").map(Number),x=P(document.getElementById("tx").value),o=document.getElementById("to");if(isNaN(x)){o.textContent="Masukkan nilai x berupa angka.";return}var r=c[0]*x*x+c[1]*x+c[2];r=Math.round(r*1e6)/1e6;o.textContent=Math.abs(r)<1e-6?"Hasil = 0, jadi x = "+document.getElementById("tx").value+" adalah akar.":"Hasil = "+r+", bukan 0, jadi x ini bukan akar."};
+var K=["Mengenali a, b, c dengan benar","Menentukan akar dengan pemfaktoran","Memeriksa akar dengan substitusi","Memecahkan masalah kontekstual"],lv=["Baru Berkembang","Layak","Cakap","Mahir"],rh="";
+K.forEach(function(k,i){rh+='<div style="margin-top:8px"><label for="k'+i+'">'+(i+1)+". "+k+'</label><select id="k'+i+'"><option value="">-- pilih tingkat --</option>';lv.forEach(function(l){rh+="<option>"+l+"</option>"});rh+="</select></div>"});
+document.getElementById("rf").innerHTML=rh;
+document.getElementById("rb").onclick=function(){var s="Kelompok: "+(document.getElementById("nm").value||"-")+"\nMisi tuntas: "+done+" dari "+total+"\n";K.forEach(function(k,i){s+=(i+1)+". "+k+": "+(document.getElementById("k"+i).value||"belum dipilih")+"\n"});s+="Catatan: "+(document.getElementById("rt").value||"-");document.getElementById("ro").textContent=s};
+document.getElementById("pb").onclick=function(){window.print()};
+</script>
+</body>
+</html>
